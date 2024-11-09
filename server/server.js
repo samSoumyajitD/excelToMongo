@@ -5,7 +5,7 @@ const dotenv = require('dotenv');
 const corsMiddleware = require('./middleware/corsMiddleware'); 
 const upload = require('./middleware/fileUploadMiddleware');    
 const candidateRoutes = require('./routes/candidateRoutes');
-
+const connectDB = require('./config/db')
 
 dotenv.config();
 
@@ -17,10 +17,10 @@ app.use(corsMiddleware);
 app.use(express.json());            
 
 // MongoDB connection setup
-mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.error("MongoDB connection error:", err));
-
+// mongoose.connect(process.env.MONGODB_URI)
+//   .then(() => console.log("MongoDB connected"))
+//   .catch((err) => console.error("MongoDB connection error:", err));
+connectDB();
 // Routes setup
 app.use('/api/candidates', candidateRoutes);
 
